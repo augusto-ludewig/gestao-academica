@@ -1,7 +1,8 @@
 #Código desenvolvido por Augusto Ludewig, estudante de Análise e Desenvolvimento de Sistemas da PUCPR - Curitiba, 11/03/2025
+from random import Random
 
 #listas para armazenar os dados
-listaAlunos  = []
+listaAlunos  = {}
 
 print('\n-----------------------------')
 print('***** SISTEMA ACADÊMICO *****')
@@ -46,7 +47,13 @@ while True:
                 case '1':
                     print('\n===== INCLUSÃO =====')
                     if(categoria == 'ESTUDANTES'):
-                        listaAlunos.append(input('\nNome do aluno: '))
+                        idAluno = int(len(listaAlunos) + 1)
+                        nomeAluno = input('\nNome do aluno: ')
+                        cpfAluno = input('CPF do aluno: ')
+                        if cpfAluno in listaAlunos:
+                            print("CPF já cadastrado!")
+                            break
+                        listaAlunos[idAluno] = nomeAluno, cpfAluno
                     else:
                         print('EM DESENVOLVIMENTO')
 
@@ -55,8 +62,7 @@ while True:
                     print('\n===== LISTAGEM =====')
                     if(categoria == 'ESTUDANTES'):
                         print('\nAlunos: ')
-                        for nome in listaAlunos:
-                            print('- ' + nome)
+                        print(listaAlunos)
                     else:
                         print('EM DESENVOLVIMENTO')
 
@@ -65,18 +71,32 @@ while True:
                     print('\n===== EXCLUSÃO =====')
                     try:
                         if(categoria == 'ESTUDANTES'):
-                            listaAlunos.remove(input('Digite o nome do aluno para ser removido: '))
+                            listaAlunos.pop(int(input('Digite o ID do aluno para ser removido: ')))
                         else:
                             print('EM DESENVOLVIMENTO')
                     except:
-                        print('Erro ao excluir! ' + categoria + ' não registrado.')
+                        print('Erro ao excluir! ID não registrado.')
                     
                 #ALTERAR
                 case '4':
 
                     print('\n===== ALTERAR =====')
 
-                    print('EM DESENVOLVIMENTO!')
+                    try:
+                        if(categoria == 'ESTUDANTES'):
+                            alunoAlterar = int(input('Digite o ID do aluno a ser alterado: '))
+                            if alunoAlterar in listaAlunos:
+                                idAluno = alunoAlterar
+                                nomeAluno = input('Nome do aluno: ')
+                                cpfAluno = input('CPF do aluno: ')
+                                listaAlunos[idAluno] = nomeAluno, cpfAluno
+                            else:
+                                print("ID não registrado!")
+                        else:
+                            print('EM DESENVOLVIMENTO')
+                    except:
+                        print('Erro ao alterar! ID não registrado.')
+
         elif(funcionalidade == '0' or funcionalidade == 'Voltar ao menu principal'):
             break
         else:
