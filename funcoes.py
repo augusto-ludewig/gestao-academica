@@ -34,16 +34,53 @@ def incluirAluno(lista):
     lista[idAluno] = nomeAluno, cpfAluno
 
 def incluirDisciplina(lista):
-    print("Em desenvolvimento")
+    idDisciplina = input('\nCódigo da disciplina: ')
+    while idDisciplina in lista:
+        print("Código já cadastrado!")
+        idDisciplina = input('Por favor, digite um código diferente: ')
+    nomeDisciplina = input('\nNome da disciplina: ')
+    lista[idDisciplina] = nomeDisciplina
 
 def incluirProfessor(lista):
-    print("Em desenvolvimento")
+    idProfessor = int(len(lista) + 1)
+    while idProfessor in lista:  # evita ID repetido
+        idProfessor += 1
+    nomeProfessor = input('\nNome do professor: ')
+    cpfProfessor = input('CPF do professor: ')
+    while cpfProfessor in lista:
+        print("CPF já cadastrado!")
+        cpfAluno = input('Digite o CPF do professor: ')
+    lista[idProfessor] = nomeProfessor, cpfProfessor
 
 def incluirTurma(lista):
-    print("Em desenvolvimento")
+    idTurma = int(input('\nCódigo da turma: '))
+    while idTurma in lista:
+        print("Código já cadastrado!")
+        idTurma = input('Por favor, digite um código diferente: ')
+    nomeTurma = input('\nNome da turma: ')
+    lista[idTurma] = nomeTurma
 
-def incluirMatricula(lista):
-    print("Em desenvolvimento")
+
+def incluirMatricula(listaMatriculas, listaAlunos, listaTurmas):
+    print("\n--- Incluir Matrícula ---")
+    idTurma = int(input('Código da turma: '))
+    idAluno = int(input('Código do aluno: '))
+
+    if idTurma not in listaTurmas:
+        print(f"Erro: Turma {idTurma} não encontrada!")
+        return
+
+    if idAluno not in listaAlunos:
+        print(f"Erro: Aluno {idAluno} não encontrado!")
+        return
+
+    for matricula in listaMatriculas:
+        if matricula[0] == idTurma and matricula[1] == idAluno:
+            print("Erro: Matrícula já existente!")
+            return
+
+    listaMatriculas.append((idTurma, idAluno))
+    print("Matrícula cadastrada com sucesso!")
 
 # Listagem
 def listar(categoria, lista):
@@ -58,6 +95,7 @@ def excluir(lista):
     except:
         print('Erro ao excluir! ID não registrado.')
 
+
 def alterarEstudante(lista):
     try:
         alunoAlterar = int(input('Digite o ID do aluno a ser alterado: '))
@@ -67,6 +105,19 @@ def alterarEstudante(lista):
             cpfAluno = input('CPF do aluno: ')
             lista[idAluno] = nomeAluno, cpfAluno
         else:
-            print('EM DESENVOLVIMENTO')
+            print("Não foi possível localizar o ID informado.")
+    except:
+        print('Erro ao alterar! ID não registrado.')
+
+def alterarProfessor(lista):
+    try:
+        professorAlterar = int(input('Digite o ID do professor a ser alterado: '))
+        if professorAlterar in lista:
+            idProfessor = professorAlterar
+            nomeProfessor = input('Nome do professor: ')
+            cpfProfessor = input('CPF do professor: ')
+            lista[idProfessor] = nomeProfessor, cpfProfessor
+        else:
+            print("Não foi possível localizar o ID informado.")
     except:
         print('Erro ao alterar! ID não registrado.')

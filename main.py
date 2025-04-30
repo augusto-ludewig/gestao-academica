@@ -6,7 +6,7 @@ listaAlunos  = {}
 listaDisciplinas  = {}
 listaProfessores  = {}
 listaTurmas  = {}
-listaMatriculas  = {}
+listaMatriculas = []
 
 print('\n-----------------------------')
 print('***** SISTEMA ACADÊMICO *****')
@@ -19,15 +19,21 @@ while True:
     # Conversão da seleção em palavra para ser usado como variável
     if (categoria == '1'):
         categoria = 'estudantes'
-    elif (categoria in ['2', '3' ,'4' , '5']):
-        print('\nEM DESENVOLVIMENTO!\n')
+    elif (categoria == '2'):
+        categoria = 'disciplinas'
+    elif (categoria == '3'):
+        categoria = 'professores'
+    elif (categoria == '4'):
+        categoria = 'turmas'
+    elif (categoria == '5'):
+        categoria = 'matriculas'
     elif (categoria == '0'):
         print('Saindo do sistema...')
         break
     else:
         print('\nOpção inválida. Tente novamente.\n')
     
-    while True and categoria == 'estudantes':
+    while True:
         funcionalidade = printMenuFuncionalidades(categoria)
 
         if funcionalidade in ['1', '2', '3', '4', 'incluir', 'listar', 'excluir', 'alterar']:
@@ -44,10 +50,11 @@ while True:
                         incluirProfessor(listaProfessores)
                     elif categoria == 'turmas':
                         incluirTurma(listaTurmas)
+                    elif categoria == 'matriculas':
+                        incluirMatricula(listaMatriculas, listaAlunos, listaTurmas)
                     else:
-                        incluirMatricula(listaMatriculas)
-
-                #LISTAR
+                        print("Opção inválida!")
+            #LISTAR
                 case '2': 
                     print('\n===== LISTAGEM =====')
                     if categoria == 'estudantes':
@@ -58,10 +65,12 @@ while True:
                         listar(categoria, listaProfessores)
                     elif categoria == 'turmas':
                         listar(categoria, listaTurmas)
-                    else:
+                    elif categoria == 'matriculas':
                         listar(categoria, listaMatriculas)
+                    else:
+                        print("Opção inválida!")
 
-                #EXCLUIR
+            #EXCLUIR
                 case '3':
                     print('\n===== EXCLUSÃO =====')
                     if categoria == 'estudantes':
@@ -72,10 +81,12 @@ while True:
                         excluir(listaProfessores)
                     elif categoria == 'turmas':
                         excluir(listaTurmas)
-                    else:
+                    elif categoria == 'matriculas':
                         excluir(listaMatriculas)
+                    else:
+                        print("Opção inválida!")
                     
-                #ALTERAR
+            #ALTERAR
                 case '4':
 
                     print('\n===== ALTERAR =====')
@@ -89,6 +100,8 @@ while True:
                         print()
                     else:
                         print()
+
+
 
         # Volta ao menu principal
         elif funcionalidade == '0' or funcionalidade == 'Voltar ao menu principal':
