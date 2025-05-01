@@ -1,12 +1,17 @@
-#Código desenvolvido por Augusto Ludewig, estudante de Análise e Desenvolvimento de Sistemas da PUCPR - Curitiba, 11/03/2025
-from funcoes import *
+# main.py
+from inclusao import *
+from auxiliar import *
+from alteracao import *
+from exclusao import *
+from persistencia import *
 
-#listas para armazenar os dados
-listaAlunos  = {}
-listaDisciplinas  = {}
-listaProfessores  = {}
-listaTurmas  = {}
-listaMatriculas = []
+# Carregar dados ao iniciar
+dados = carregar_dados()
+lista_alunos = dados['alunos']
+lista_disciplinas = dados['disciplinas']
+lista_professores = dados['professores']
+lista_turmas = dados['turmas']
+lista_matriculas = dados['matriculas']
 
 print('\n-----------------------------')
 print('***** SISTEMA ACADÊMICO *****')
@@ -14,27 +19,27 @@ print('-----------------------------\n')
 
 # Menu principal
 while True:
-    categoria = printMenuPrincipal()
+    categoria = print_menu_principal()
     
     # Conversão da seleção em palavra para ser usado como variável
-    if (categoria == '1'):
+    if categoria == '1':
         categoria = 'estudantes'
-    elif (categoria == '2'):
+    elif categoria == '2':
         categoria = 'disciplinas'
-    elif (categoria == '3'):
+    elif categoria == '3':
         categoria = 'professores'
-    elif (categoria == '4'):
+    elif categoria == '4':
         categoria = 'turmas'
-    elif (categoria == '5'):
+    elif categoria == '5':
         categoria = 'matriculas'
-    elif (categoria == '0'):
+    elif categoria == '0':
         print('Saindo do sistema...')
         break
     else:
         print('\nOpção inválida. Tente novamente.\n')
     
     while True:
-        funcionalidade = printMenuFuncionalidades(categoria)
+        funcionalidade = print_menu_funcionalidades(categoria)
 
         if funcionalidade in ['1', '2', '3', '4', 'incluir', 'listar', 'excluir', 'alterar']:
             match funcionalidade:  
@@ -43,30 +48,30 @@ while True:
                 case '1':
                     print('\n===== INCLUSÃO =====')
                     if categoria == 'estudantes':
-                        incluirAluno(listaAlunos)
+                        incluir_aluno(lista_alunos)
                     elif categoria == 'disciplinas':
-                        incluirDisciplina(listaDisciplinas)
+                        incluir_disciplina(lista_disciplinas)
                     elif categoria == 'professores':
-                        incluirProfessor(listaProfessores)
+                        incluir_professor(lista_professores)
                     elif categoria == 'turmas':
-                        incluirTurma(listaTurmas)
+                        incluir_turma(lista_turmas)
                     elif categoria == 'matriculas':
-                        incluirMatricula(listaMatriculas, listaAlunos, listaTurmas)
+                        incluir_matricula(lista_matriculas, lista_alunos, lista_turmas)
                     else:
                         print("Opção inválida!")
             #LISTAR
                 case '2': 
                     print('\n===== LISTAGEM =====')
                     if categoria == 'estudantes':
-                        listar(categoria, listaAlunos)
+                        listar(categoria, lista_alunos)
                     elif categoria == 'disciplinas':
-                        listar(categoria, listaDisciplinas)
+                        listar(categoria, lista_disciplinas)
                     elif categoria == 'professores':
-                        listar(categoria, listaProfessores)
+                        listar(categoria, lista_professores)
                     elif categoria == 'turmas':
-                        listar(categoria, listaTurmas)
+                        listar(categoria, lista_turmas)
                     elif categoria == 'matriculas':
-                        listar(categoria, listaMatriculas)
+                        listar(categoria, lista_matriculas)
                     else:
                         print("Opção inválida!")
 
@@ -74,37 +79,37 @@ while True:
                 case '3':
                     print('\n===== EXCLUSÃO =====')
                     if categoria == 'estudantes':
-                        excluir(listaAlunos)
+                        excluir_registro(lista_alunos)
                     elif categoria == 'disciplinas':
-                        excluir(listaDisciplinas)
+                        excluir_disciplina(lista_disciplinas)
                     elif categoria == 'professores':
-                        excluir(listaProfessores)
+                        excluir_registro(lista_professores)
                     elif categoria == 'turmas':
-                        excluir(listaTurmas)
+                        excluir_registro(lista_turmas)
                     elif categoria == 'matriculas':
-                        excluir(listaMatriculas)
-                    else:
-                        print("Opção inválida!")
+                        excluir_matricula(lista_matriculas)
                     
             #ALTERAR
                 case '4':
 
                     print('\n===== ALTERAR =====')
                     if categoria == 'estudantes':
-                        alterarEstudante(listaAlunos)
+                        alterar_estudante(lista_alunos)
                     elif categoria == 'disciplinas':
-                        print()
+                        alterar_disciplina(lista_disciplinas)
                     elif categoria == 'professores':
-                        print()
-                    elif categoria == 'turmas':
-                        print()
-                    else:
-                        print()
+                        alterar_professor(lista_professores)
+                    else: #turmas
+                        alterar_turma(lista_turmas)
 
 
 
         # Volta ao menu principal
         elif funcionalidade == '0' or funcionalidade == 'Voltar ao menu principal':
+            if salvar_dados(lista_alunos, lista_professores, lista_disciplinas,
+                            lista_turmas, lista_matriculas):
+                print('Dados salvos com sucesso!')
+            print('Saindo do sistema...')
             break
         else:
             print('Opção inválida. Tente novamente.')
