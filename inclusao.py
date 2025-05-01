@@ -39,7 +39,6 @@ def incluir_professor(lista):
 
     nome = input('\nNome do professor: ').strip()
 
-    # Verificar CPF único
     cpf = input('CPF do professor: ').strip()
     cpfs_existentes = [prof[1] for prof in lista.values()]
     while cpf in cpfs_existentes:
@@ -49,7 +48,6 @@ def incluir_professor(lista):
 
     lista[id_professor] = (nome, cpf)
     print("Professor cadastrado com sucesso!")
-
 
 def incluir_turma(lista):
     while True:
@@ -66,7 +64,6 @@ def incluir_turma(lista):
     lista[codigo] = nome
     print("Turma cadastrada com sucesso!")
 
-
 def incluir_matricula(matriculas, alunos, turmas):
     print("\n--- Nova Matrícula ---")
 
@@ -81,7 +78,6 @@ def incluir_matricula(matriculas, alunos, turmas):
         except ValueError:
             print("Erro: Código inválido!")
 
-    # Verificar aluno
     while True:
         try:
             cod_aluno = int(input('Código do aluno: '))
@@ -92,7 +88,6 @@ def incluir_matricula(matriculas, alunos, turmas):
         except ValueError:
             print("Erro: Código inválido!")
 
-    # Verificar matrícula duplicada
     nova_matricula = (cod_turma, cod_aluno)
     if nova_matricula in matriculas:
         print("Erro: Matrícula já existe!")
